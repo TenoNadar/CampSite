@@ -49,4 +49,17 @@ app.use(require('express-session')({
   passport.use(new LocalStrategy(User.authenticate()));
   passport.serializeUser(User.serializeUser());
   passport.deserializeUser(User.deserializeUser());
+// Pass information to all pages
+
+app.use(function(req, res, next) {
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    res.locals.currentUser = req.user;
+    next();
+  });
   
+  // Seed the database with fresh data
+  
+  if (reseedDatabase) {
+    seedDB();
+  }  
