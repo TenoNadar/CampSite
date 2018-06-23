@@ -33,4 +33,22 @@ router.get('/register', function(req, res) {
       }
     });
   });
+
+  // Login/Logout Routes
+
+router.get('/login', function(req, res) {
+    res.render('login');
+  });
+  
+  router.post('/login', passport.authenticate('local', {
+    successRedirect: '/campgrounds',
+    failureRedirect: '/login',
+    failureFlash: true
+  }));
+  
+  router.get('/logout', function(req, res) {
+    req.logout();
+    req.flash('success', 'You have successfully logged out.');
+    res.redirect('/campgrounds');
+  });
   
