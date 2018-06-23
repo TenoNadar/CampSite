@@ -72,4 +72,16 @@ var Campground = require('./models/campground'),
         Comment.remove({}, function(err) {
           if (err) {
             console.log(err);
-          } else
+          } else{
+            campgroundData.forEach(function(seed, thisArg) {
+              Campground.create(seed, function(err, campgroundResponse) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  Comment.create(commentData1[thisArg], function(err, comment) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      campgroundResponse.comments.push(comment);
+                    }
+                  });
