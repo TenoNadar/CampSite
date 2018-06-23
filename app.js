@@ -62,4 +62,12 @@ app.use(function(req, res, next) {
   
   if (reseedDatabase) {
     seedDB();
-  }  
+  }
+  
+  // =========//
+// Routes! //
+// =========//
+
+app.use('/', indexRoutes);
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:campground_id/comments', commentRoutes);
