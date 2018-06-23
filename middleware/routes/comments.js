@@ -6,6 +6,7 @@ var router = express.Router({
 var Campground = require('../models/campground'),
   Comment = require('../models/comment'),
   middleware = require('../middleware');
+
 // Campground Comment NEW
 
 router.get('/new', middleware.isLoggedIn, function(req, res) {
@@ -16,6 +17,32 @@ router.get('/new', middleware.isLoggedIn, function(req, res) {
       } else {
         res.render('comments/new', {
           campground: foundCampground
+        });
+      }
+    });
+  });
+
+  // Campground Comment CREATE
+
+router.post('/', middleware.isLoggedIn, function(req, res) {
+    Campground.findById(req.params.campground_id, function(err, campground) {
+      if (err) {
+        req.flash('error', 'Campground was not found');
+        res.redirect('/campgrounds');
+      } else {
+        Comment.create(req.body.comment, function(err, comment) {
+          if (err) {
+            req.flash('error', 'Comment could not be created');
+            res.redirect('/campgrounds');
+          } else {
+            comment.author.id = req.user._id;
+            comment.author.username = req.user.username;
+            comment.save();
+            campground.comments.push(comment);
+            campground.save();
+            req.flash('success', 'Comment was added');
+            res.redirect('/campgrounds/' + campground._id);
+          }
         });
       }
     });
