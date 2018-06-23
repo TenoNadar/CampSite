@@ -62,3 +62,14 @@ var Campground = require('./models/campground'),
       author: 'Apu'
       }
   ];
+
+  function seedDB() {
+    Campground.remove({}, function(err) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('Removed campgrounds!');
+        Comment.remove({}, function(err) {
+          if (err) {
+            console.log(err);
+          } else
