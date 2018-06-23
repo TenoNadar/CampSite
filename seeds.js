@@ -84,4 +84,12 @@ var Campground = require('./models/campground'),
                     } else {
                       campgroundResponse.comments.push(comment);
                     }
+                  }); Comment.create(commentData2[thisArg], function(err, comment2) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      campgroundResponse.comments.push(comment2);
+                      campgroundResponse.save();
+                    }
                   });
+                }
