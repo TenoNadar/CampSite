@@ -31,3 +31,22 @@ middlewareObj.isLoggedIn = function(req, res, next) {
       res.redirect('/login');
     }
   };
+
+  middlewareObj.checkCommentOwnership = function(req, res, next) {
+    if (req.isAuthenticated()) {
+      Comment.findById(req.params.comment_id, function(err, foundComment) {
+        if (err) {
+          req.flash('error', 'Comment was not found');
+          res.redirect('back');
+        } else if (foundComment.author.id.equals(req.user._id)) {
+          next();
+        } else {
+          req.flash('error', 'You can only make changes to a comment you added');
+          res.redirect('back');
+        }
+      });
+    } else {
+      req.flash('error', 'Please Log in First');
+      res.redirect('/login');
+    }
+  };
