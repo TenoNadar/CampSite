@@ -51,3 +51,20 @@ router.post('/', middleware.isLoggedIn, function(req, res) {
       }
     });
   });
+
+  // Campground SHOW
+
+router.get('/:campground_id', function(req, res) {
+    Campground.findById(req.params.campground_id).populate('comments').exec(
+      function(err, foundCampground) {
+        if (err) {
+          req.flash('error', 'Campground was not found');
+          res.redirect('back');
+        } else {
+          res.render('campgrounds/show', {
+            campground: foundCampground
+          });
+        }
+      }
+    );
+  });
