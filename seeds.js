@@ -92,4 +92,21 @@ var Campground = require('./models/campground'),
                       campgroundResponse.save();
                     }
                   });
-                }
+                } });
+                console.log('Added campground');
+              });
+            }
+          });
+        }
+      });
+      User.remove({}, function(err) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('User database cleared');
+        }
+      });
+    
+    }
+    
+    module.exports = seedDB;
