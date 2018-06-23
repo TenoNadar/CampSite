@@ -84,3 +84,21 @@ function(req, res) {
   });
 }
 );
+
+// Campground UPDATE
+
+router.put('/:campground_id', middleware.checkCampgroundOwnership,
+  function(req, res) {
+    Campground.findByIdAndUpdate(req.params.campground_id, req.body.campground,
+      function(err) {
+        if (err) {
+          req.flash('error', 'Campground was not found');
+          res.redirect('back');
+        } else {
+          req.flash('success', 'Campground was updated');
+          res.redirect('/campgrounds/' + req.params.campground_id);
+        }
+      }
+    );
+  }
+);
