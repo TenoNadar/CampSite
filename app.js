@@ -19,3 +19,19 @@ var User = require('./models/user'),
   campgroundRoutes = require('./routes/campgrounds'),
   commentRoutes = require('./routes/comments'),
   seedDB = require('./seeds');
+
+  // Misc Setups
+
+app.use(express.static('public'));
+app.use(methodOverride('_method'));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(flash());
+app.set('view engine', 'ejs');
+
+// Backup variables in the event of environment variable issues.  See README
+var databaseURL = process.env.DATABASEURL || 'mongodb://localhost/yelp_camp';
+var sessionSecret = process.env.SESSION_SECRET || 'This is a backup secret';
+
+mongoose.connect(databaseURL);
