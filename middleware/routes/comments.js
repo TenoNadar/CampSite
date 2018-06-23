@@ -65,3 +65,22 @@ function(req, res) {
   });
 }
 );
+
+// Campground Comment UPDATE
+
+router.put('/:comment_id', middleware.checkCommentOwnership,
+  function(req, res) {
+    Comment.findByIdAndUpdate(
+      req.params.comment_id, req.body.comment,
+      function(err) {
+        if (err) {
+          req.flash('error', 'Comment was not found');
+          res.redirect('back');
+        } else {
+          req.flash('success', 'Comment was updated');
+          res.redirect('/campgrounds/' + req.params.campground_id);
+        }
+      }
+    );
+  }
+);
