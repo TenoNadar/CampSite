@@ -19,3 +19,9 @@ router.get('/', function(req, res) {
     }
   });
 });
+
+// Campground NEW
+
+router.get('/new', middleware.isLoggedIn, function(req, res) {
+    res.render('campgrounds/new');
+  });
