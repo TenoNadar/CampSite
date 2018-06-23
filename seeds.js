@@ -24,3 +24,22 @@ var Campground = require('./models/campground'),
       description: 'Hills and lakes and lakes and hills.  Pork ribeye pork chop.'
       }
   ];
+
+  var commentData1 = [
+    {
+      text: 'This place is great',
+      author: 'Homer'
+      },
+    {
+      text: '. . .',
+      author: 'Maggie'
+      },
+    {
+      text: '*plays sax*',
+      author: 'Lisa'
+      },
+    {
+      text: 'Cowabunga',
+      author: 'Bart'
+      }
+  ];
