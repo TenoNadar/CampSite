@@ -102,3 +102,18 @@ router.put('/:campground_id', middleware.checkCampgroundOwnership,
     );
   }
 );
+// Campground DESTROY
+
+router.delete('/:campground_id', middleware.checkCampgroundOwnership,
+  function(req, res) {
+    Campground.findByIdAndRemove(req.params.campground_id, function(err) {
+      if (err) {
+        req.flash('error', 'Campground was not found');
+        res.redirect('back');
+      } else {
+        req.flash('error', 'Campground was deleted');
+        res.redirect('/campgrounds');
+      }
+    });
+  }
+);
