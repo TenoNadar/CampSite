@@ -35,3 +35,18 @@ var databaseURL = process.env.DATABASEURL || 'mongodb://localhost/yelp_camp';
 var sessionSecret = process.env.SESSION_SECRET || 'This is a backup secret';
 
 mongoose.connect(databaseURL);
+// Passport Setups
+
+app.use(require('express-session')({
+    secret: sessionSecret,
+    resave: false,
+    saveUninitialized: false
+  }));
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  
+  passport.use(new LocalStrategy(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
+  
