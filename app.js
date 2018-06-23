@@ -12,7 +12,9 @@ var app = express();
   methodOverride = require('method-override'),
   passport = require('passport'),
   LocalStrategy = require('passport-local');
-
+  var url = 'mongodb://localhost:27017/camp';mongoose.connect(url);
+  var db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error:'));
 
 var User = require('./models/user'),
   indexRoutes = require('./routes/index'),
@@ -31,8 +33,8 @@ app.use(flash());
 app.set('view engine', 'ejs');
 
 // Backup variables in the event of environment variable issues.  See README
-var databaseURL = process.env.DATABASEURL || 'mongodb://localhost/yelp_camp';
-var sessionSecret = process.env.SESSION_SECRET || 'This is a backup secret';
+var databaseURL = process.env.DATABASEURL || 'mongodb://localhost/CampSite';
+var sessionSecret = process.env.SESSION_SECRET || 'This is done';
 
 mongoose.connect(databaseURL);
 // Passport Setups
@@ -76,3 +78,8 @@ app.use('/campgrounds/:campground_id/comments', commentRoutes);
 // Listener! //
 // ===========//
 
+app.listen(3000, process.env.IP, function() {
+  var appConsoleMsg = 'YelpCamp server has started: ';
+  appConsoleMsg += process.env.IP + ':' + process.env.PORT;
+  console.log(appConsoleMsg);
+});
