@@ -43,3 +43,22 @@ var Campground = require('./models/campground'),
       author: 'Bart'
       }
   ];
+
+  var commentData2 = [
+    {
+      text: 'Fish for dinner!',
+      author: 'Marge'
+      },
+    {
+      text: '*falls on rock*',
+      author: 'Grandpa Simpson'
+      },
+    {
+      text: 'I found a bug!',
+      author: 'Ralph'
+      },
+    {
+      text: 'Too much water!',
+      author: 'Apu'
+      }
+  ];
