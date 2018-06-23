@@ -117,3 +117,6 @@ router.delete('/:campground_id', middleware.checkCampgroundOwnership,
     });
   }
 );
+// Module Export
+
+module.exports = router;
