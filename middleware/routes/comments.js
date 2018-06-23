@@ -84,3 +84,18 @@ router.put('/:comment_id', middleware.checkCommentOwnership,
     );
   }
 );
+// Campground Comment DESTROY
+
+router.delete('/:comment_id', middleware.checkCommentOwnership,
+  function(req, res) {
+    Comment.findByIdAndRemove(req.params.comment_id, function(err) {
+      if (err) {
+        req.flash('error', 'Comment was not found');
+        res.redirect('back');
+      } else {
+        req.flash('success', 'Comment was deleted');
+        res.redirect('/campgrounds/' + req.params.campground_id);
+      }
+    });
+  }
+);
