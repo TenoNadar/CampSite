@@ -99,3 +99,6 @@ router.delete('/:comment_id', middleware.checkCommentOwnership,
     });
   }
 );
+// Module Export
+
+module.exports = router;
